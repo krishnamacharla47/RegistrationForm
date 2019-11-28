@@ -1,0 +1,83 @@
+<div class="container" style="display: flex;">
+  <div class="col-sm-6">
+      <h2>Registraion Form</h2>
+    <form  #registrationForm="ngForm" (ngSubmit)="saveRegistrationForm(registrationForm)">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" class="form-control" [(ngModel)]="fname" id="fullName" placeholder="Enter Full Name" name="FullName">
+        </div>
+        <div class="form-group">
+            <label for="fullName">Department</label>
+            <select  name="department" [(ngModel)]="department.name" class="form-control">
+                <option *ngFor="let dept of department" [value]="dept.id"> {{dept.name}}  </option>
+                
+
+            </select>
+        </div>
+            
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control"  [(ngModel)]="email" id="email" placeholder="Enter email" name="email">
+        </div>
+        <div class="form-group">
+          <label for="pwd">Password:</label>
+          <input type="password" class="form-control" [(ngModel)]="password" id="password" placeholder="Enter password" name="password">
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" name="Remember"  id="Remember" [(ngModel)]="Remember"> Remember me</label>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+
+  </div>
+ <div class="col-sm-6" *ngIf="TableData">
+  <table class="table table-striped">
+        <tr>
+            <th>Title</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Password</th>
+            <th>IsActive</th>
+            <th>Action</th>
+        </tr>
+        <tr *ngFor="let regOj of tableDatalist;let index=i;">
+            <td>
+                {{regOj.FullName}}
+            </td>
+            <td>
+                {{regOj.email}}
+            </td>
+            <td>
+                {{regOj.department}}
+            </td>
+            <td>
+                {{regOj.password}}
+            </td>
+            <td>{{regOj.Remember}}</td>
+            <td><button (click)="openModal(regOj,template)">action</button></td>
+        </tr>
+    </table>
+</div>
+</div>
+
+
+<div class="container">
+    <ng-template #template>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Selected Register</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+                      <div> <b>Full Name</b> :{{selectedDataList.FullName}}</div>
+                        <div><b>Email</b> : {{selectedDataList.email}}</div>
+                        <div><b>Department</b> : {{selectedDataList.department}}</div>
+                        <div><b>Password</b> : {{selectedDataList.password}}</div>
+                        <div><b>Remember</b>: {{selectedDataList.Remember}}</div>
+                
+        </div>
+      </ng-template>
+      
+</div>
+
